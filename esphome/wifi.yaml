@@ -1,0 +1,21 @@
+# WLAN-Profil – wird von mini-radio.yaml als Package eingebunden.
+# Zugangsdaten stehen in secrets.yaml (nicht im Repo).
+
+wifi:
+  networks:
+    # Bis zu mehrere Netze: verbindet sich mit dem stärksten erreichbaren
+    - ssid: !secret wifi_ssid
+      password: !secret wifi_password
+    - ssid: !secret wifi_ssid_2
+      password: !secret wifi_password_2
+  power_save_mode: light
+  # Fallback-Hotspot: Wenn kein bekanntes WLAN erreichbar ist,
+  # öffnet das Radio nach 1 Minute eigenes WLAN "Mini-Radio-Setup".
+  ap:
+    ssid: Mini-Radio-Setup
+    password: !secret ap_password
+  ap_timeout: 1min
+
+# Captive Portal: Im Fallback-Hotspot unter http://192.168.4.1
+# neues WLAN eintragen – ohne neu zu flashen.
+captive_portal:

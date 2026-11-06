@@ -96,6 +96,27 @@ Direkt an 3V3 würde der volle Akku (4,2 V) den ESP überlasten.
 4. Falls der C3 nicht erkannt wird: **BOOT** gedrückt halten, **RESET** kurz drücken, BOOT loslassen.
 5. Spätere Updates laufen per OTA über WLAN.
 
+### WLAN-Profil (`esphome/wifi.yaml`)
+
+Die WLAN-Einstellungen liegen in einer eigenen Datei, die `mini-radio.yaml` als Package einbindet.
+So bleibt die Haupt-Config unverändert, wenn sich nur das Netz ändert.
+
+- **Zwei Netze**: Haupt-WLAN plus ein zweites (z. B. Handy-Hotspot für unterwegs). Das Radio nimmt das stärkste erreichbare.
+- **Fallback-Hotspot**: Findet es kein bekanntes Netz, öffnet es nach 1 Minute das WLAN **„Mini-Radio-Setup“**.
+- **Captive Portal**: Mit dem Handy in „Mini-Radio-Setup“ einwählen, `http://192.168.4.1` öffnen und neues WLAN eintragen – ohne neu zu flashen.
+
+Die Zugangsdaten selbst stehen nur in `secrets.yaml`.
+
+### Webinterface
+
+Nach dem Flashen unter `http://mini-radio.local` (Benutzer `admin`, Passwort aus `web_password`):
+Status, Lautstärke, Play-Taste, Live-Logs und Firmware-Upload.
+
+- `local: true` legt JS/CSS in den Flash – funktioniert ohne Internet.
+- Der C3 hat kein PSRAM: Webserver und Audio-Puffer teilen sich den RAM. Hakt die Wiedergabe,
+  den `web_server:`-Block auskommentieren – Home Assistant reicht zur Steuerung.
+- Songs hochladen/abspielen geht nicht über das Webinterface, sondern über Home Assistant.
+
 ## 6. Home Assistant einrichten
 
 1. Gerät erscheint unter *Einstellungen → Geräte & Dienste* als „Mini-Radio“ → hinzufügen, API-Key eingeben.
@@ -134,6 +155,8 @@ Direkt an 3V3 würde der volle Akku (4,2 V) den ESP überlasten.
 | Kein Ton | BCLK/LRC vertauscht? MAX98357A **SD**-Pin nicht auf GND ziehen (sonst Shutdown). |
 | Rauschen / Knacken | Masse gemeinsam? Kurze Kabel, Gain reduzieren. |
 | Aussetzer bei Streams | `buffer_size` leicht erhöhen, WLAN-Signal prüfen, oder auf S3 wechseln. |
+| Radio nicht im WLAN | Nach 1 Min. Hotspot „Mini-Radio-Setup“ suchen, über `192.168.4.1` neu einrichten. |
+| `mini-radio.local` nicht erreichbar | mDNS im Netz blockiert → IP aus Router oder HA nehmen. |
 | Compile-Fehler bei Keys | ESPHome-Version prüfen – Optionen des `speaker`-Media-Players haben sich zwischen Versionen geändert. |
 
 ## Lizenz

@@ -24,10 +24,18 @@ ota:
   - platform: esphome
     password: !secret ota_password
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  power_save_mode: light
+packages:
+  wifi: !include wifi.yaml
+
+# Mini-Webinterface: http://mini-radio.local
+# local: true -> JS/CSS liegen im Flash, funktioniert ohne Internet
+web_server:
+  port: 80
+  version: 3
+  local: true
+  auth:
+    username: admin
+    password: !secret web_password
 
 i2s_audio:
   - id: i2s_out
