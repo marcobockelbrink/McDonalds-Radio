@@ -1,0 +1,74 @@
+# ESPHome – Mini-Radio (ESP32-C3 Super Mini + MAX98357A)
+# Verkabelung:
+#   MAX98357A BCLK -> GPIO5, LRC -> GPIO6, DIN -> GPIO7
+#   MAX98357A VIN  -> Akku (+), GND -> GND
+#   Taster K1      -> GPIO4 <-> GND
+#   GPIO2/8/9 sind Strapping-Pins -> frei lassen
+
+esphome:
+  name: mini-radio
+  friendly_name: Mini-Radio
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: light
+
+i2s_audio:
+  - id: i2s_out
+    i2s_bclk_pin: GPIO5
+    i2s_lrclk_pin: GPIO6
+
+speaker:
+  - platform: i2s_audio
+    id: spk
+    i2s_audio_id: i2s_out
+    dac_type: external
+    i2s_dout_pin: GPIO7
+    channel: mono
+
+# Ohne PSRAM: kleiner Puffer, 16 kHz mono WAV.
+# Home Assistant rechnet MP3/Webradio automatisch in dieses Format um.
+media_player:
+  - platform: speaker
+    id: radio
+    name: Radio
+    buffer_size: 6000
+    volume_initial: 0.6
+    announcement_pipeline:
+      speaker: spk
+      format: WAV
+      sample_rate: 16000
+      num_channels: 1
+
+binary_sensor:
+  - platform: gpio
+    id: play_taste
+    name: Play-Taste
+    pin:
+      number: GPIO4
+      mode: INPUT_PULLUP
+      inverted: true
+    filters:
+      - delayed_on: 20ms
+    on_press:
+      - if:
+          condition:
+            media_player.is_playing: radio
+          then:
+            - media_player.stop: radio

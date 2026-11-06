@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" font-family="Helvetica,Arial,sans-serif" font-size="13">
+  <rect width="760" height="420" fill="#ffffff"/>
+  <g stroke="#333" stroke-width="1.5" fill="#f4f4f4">
+    <rect x="20" y="40" width="120" height="70" rx="6"/>
+    <rect x="20" y="170" width="120" height="110" rx="6"/>
+    <rect x="200" y="170" width="90" height="60" rx="6"/>
+    <rect x="340" y="120" width="150" height="220" rx="6"/>
+    <rect x="560" y="120" width="150" height="170" rx="6"/>
+    <circle cx="690" cy="370" r="30"/>
+    <rect x="370" y="370" width="90" height="36" rx="6"/>
+  </g>
+  <g font-weight="bold" text-anchor="middle">
+    <text x="80" y="70">LiPo 3,7 V</text><text x="80" y="88" font-weight="normal">300–500 mAh</text>
+    <text x="80" y="195">TP4056</text><text x="80" y="212" font-weight="normal">(mit Schutz)</text>
+    <text x="245" y="205">Schalter</text>
+    <text x="415" y="145">ESP32-C3</text><text x="415" y="162" font-weight="normal">Super Mini</text>
+    <text x="635" y="145">MAX98357A</text>
+    <text x="690" y="375">LS</text>
+    <text x="415" y="393">Taster K1</text>
+  </g>
+  <g font-size="11">
+    <text x="30" y="240">B+ / B−</text><text x="30" y="265">OUT+ / OUT−</text>
+    <text x="350" y="200">5V</text><text x="350" y="225">GND</text>
+    <text x="440" y="250" text-anchor="end">GPIO5</text>
+    <text x="440" y="275" text-anchor="end">GPIO6</text>
+    <text x="440" y="300" text-anchor="end">GPIO7</text>
+    <text x="440" y="325" text-anchor="end">GPIO4</text>
+    <text x="570" y="180">VIN</text><text x="570" y="205">GND</text>
+    <text x="570" y="235">BCLK</text><text x="570" y="255">LRC</text><text x="570" y="275">DIN</text>
+    <text x="680" y="270">+ / −</text>
+  </g>
+  <g stroke-width="2" fill="none">
+    <path d="M80 110 V170" stroke="#c0392b"/>
+    <path d="M140 260 H170 V200 H200" stroke="#c0392b"/>
+    <path d="M290 200 H340" stroke="#c0392b"/>
+    <path d="M315 200 V100 H540 V176 H560" stroke="#c0392b"/>
+    <path d="M140 272 H320 V222 H340" stroke="#222"/>
+    <path d="M320 272 V350 H530 V201 H560" stroke="#222"/>
+    <path d="M490 246 H560 V231" stroke="#2980b9"/>
+    <path d="M490 271 H545 V251 H560" stroke="#27ae60"/>
+    <path d="M490 296 H550 V271 H560" stroke="#8e44ad"/>
+    <path d="M490 321 H500 V388 H460" stroke="#e67e22"/>
+    <path d="M370 388 H320" stroke="#222"/>
+    <path d="M690 290 V340" stroke="#555"/>
+  </g>
+  <text x="20" y="20" font-weight="bold" font-size="15">Mini-Radio – Verdrahtung</text>
+  <text x="20" y="410" font-size="11" fill="#555">Rot = Plus, Schwarz = GND. GPIO2/8/9 frei lassen (Strapping).</text>
+</svg>

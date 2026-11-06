@@ -1,0 +1,20 @@
+alias: Mini-Radio – Play-Taste
+description: Spielt beim Tastendruck einen Song ab (wenn gerade nichts läuft).
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.mini_radio_play_taste
+    to: "on"
+conditions:
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: media_player.mini_radio_radio
+        state: playing
+actions:
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.mini_radio_radio
+    data:
+      media_content_id: media-source://media_source/local/mini-radio/song.mp3
+      media_content_type: music
+mode: single
